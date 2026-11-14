@@ -1,0 +1,25 @@
+node_modules/
+.env
+.env*
+.env.*
+*.log
+.DS_Store
+data/
+qa/
+.local-archive/
+dist/
+# Private project notes and document artifacts are not part of the source handover.
+*.[mM][dD]
+*.[mM][dD][xX]
+*.[dD][oO][cC]
+*.[dD][oO][cC][xX]
+*.[pP][dD][fF]
+*.[rR][tT][fF]
+*.[oO][dD][tT]
+*.sqlite
+*.sqlite-*
+*.db
+
+.next/
+out/
+*.tsbuildinfo
