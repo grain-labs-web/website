@@ -12,11 +12,10 @@ export async function rawBody(request){
 }
 const rateKey=Symbol.for('grainlabs.request.rates');
 export function checkWrite(request){
-  const fallback = process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://127.0.0.1:5175';
+  const fallback = process.env.URL
+    || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : null)
+    || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+    || 'http://127.0.0.1:5175';
   const origin=new URL(process.env.PUBLIC_ORIGIN||fallback).origin;
   if(request.headers.get('origin')!==origin||!request.headers.get('content-type')?.startsWith('application/json'))throw new CheckoutError(403,'Request not allowed.');
   const rates=globalThis[rateKey]??=new Map(),now=Date.now();
