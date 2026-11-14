@@ -40,11 +40,17 @@ export default function BreakfastCreator({onShop}) {
 <div className="card-format"><label htmlFor="card-format">Card size</label><select id="card-format" value={format} onChange={e => setFormat(e.target.value)}><option value="portrait">Portrait · 4:5</option><option value="square">Square · 1:1</option><option value="story">Story · 9:16</option></select></div>
 <div className="creator-actions-row">
   <button id="create-card" className="button" onClick={() => setShareOpen(true)}>Make my breakfast card <span aria-hidden="true">↗</span></button>
-  <button id="quick-whatsapp-btn" className="button secondary button-whatsapp" aria-label="Share recipe directly on WhatsApp" title="Share recipe on WhatsApp" onClick={() => {
+  <button id="quick-whatsapp-btn" className="button button-whatsapp-share" aria-label="Share recipe directly on WhatsApp" title="Share recipe on WhatsApp" onClick={() => {
     const url = new URL(location.href);
     url.hash = recipeHash(selected);
-    window.open('https://wa.me/?text=' + encodeURIComponent('Check out my custom Grain Labs breakfast bowl: ' + url.href), '_blank', 'noopener,noreferrer');
-  }}><span>💬</span> WhatsApp ↗</button>
+    const text = `Check out my Grain Labs breakfast bowl! 🥣✨\n\n${recipeText(selected)}\n\nMake your own mix: ${url.href}`;
+    window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
+  }}>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.88 7 8.5 7 9.77C7 11.04 7.93 12.27 8.06 12.44C8.2 12.61 9.89 15.22 12.46 16.33C13.07 16.6 13.56 16.76 13.93 16.88C14.54 17.07 15.09 17.04 15.53 16.98C16.02 16.91 17.03 16.37 17.24 15.78C17.45 15.19 17.45 14.68 17.38 14.57C17.32 14.47 17.15 14.41 16.91 14.29C16.66 14.17 15.45 13.58 15.22 13.5C15 13.42 14.83 13.38 14.67 13.62C14.5 13.87 14.03 14.41 13.88 14.57C13.74 14.74 13.6 14.76 13.35 14.64C13.11 14.51 12.32 14.26 11.38 13.43C10.65 12.78 10.15 11.97 10.01 11.73C9.87 11.48 10 11.35 10.12 11.23C10.23 11.12 10.37 10.94 10.49 10.8C10.61 10.66 10.66 10.56 10.74 10.39C10.82 10.23 10.78 10.08 10.72 9.96C10.66 9.84 10.17 8.64 9.97 8.14C9.77 7.66 9.57 7.72 9.42 7.71C9.28 7.71 9.12 7.71 8.95 7.71C8.79 7.71 8.53 7.33 8.53 7.33Z"/>
+    </svg>
+    <span>Share on WhatsApp</span>
+  </button>
 </div><p className="share-note">Made by you. Ready for your story.</p>
 </div>
 </div>
