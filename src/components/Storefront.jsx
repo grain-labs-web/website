@@ -49,8 +49,48 @@ export default function Storefront({ intro, story, year }) {
     <Footer year={year} onPolicy={setPolicy} />
     <ProductDialog open={productOpen} onClose={()=>setProductOpen(false)} quantity={quantity} change={change} onCheckout={checkout} />
     <dialog ref={policyRef} className="policy-dialog" aria-labelledby="policy-title" onClose={()=>setPolicy(null)} onCancel={()=>setPolicy(null)} onClick={e=>backdropClose(e,()=>setPolicy(null))}>
-      <button className="close" onClick={()=>setPolicy(null)} aria-label="Close information">×</button><p className="eyebrow">THE DETAILS</p><h2 id="policy-title">{policy}</h2>
-      <div>{policy&&<PolicyContent html={policies[policy]} />}</div>
+      <button className="close" onClick={()=>setPolicy(null)} aria-label="Close information">×</button>
+      <p className="eyebrow">{policy === 'Contact' ? 'GET IN TOUCH' : 'THE DETAILS'}</p>
+      <h2 id="policy-title">{policy === 'Contact' ? 'Contact Us' : policy}</h2>
+      <div>
+        {policy === 'Contact' ? (
+          <div className="contact-modal-body">
+            <p className="contact-intro-text">We'd love to hear from you. Reach out anytime!</p>
+            <div className="contact-cards">
+              <a href="mailto:Hello@grainlabs.co.in" className="contact-card">
+                <span className="contact-card-icon" aria-hidden="true">📧</span>
+                <div className="contact-card-details">
+                  <strong>Email</strong>
+                  <span className="contact-card-val">Hello@grainlabs.co.in</span>
+                  <small>We reply within 24 hours</small>
+                </div>
+              </a>
+              <a href="https://wa.me/917888928217" target="_blank" rel="noopener noreferrer" className="contact-card">
+                <span className="contact-card-icon" aria-hidden="true">💬</span>
+                <div className="contact-card-details">
+                  <strong>WhatsApp</strong>
+                  <span className="contact-card-val">+91 78889 28217</span>
+                  <small>Mon–Sat, 9am–6pm IST</small>
+                </div>
+              </a>
+              <div className="contact-card">
+                <span className="contact-card-icon" aria-hidden="true">📍</span>
+                <div className="contact-card-details">
+                  <strong>Location</strong>
+                  <span className="contact-card-val">India</span>
+                  <small>Delivering pan India</small>
+                </div>
+              </div>
+            </div>
+            <div className="contact-order-notice">
+              <strong>For order related queries</strong>
+              <p>Please include your Order ID in the message for faster resolution.</p>
+            </div>
+          </div>
+        ) : (
+          policy && <PolicyContent html={policies[policy]} />
+        )}
+      </div>
     </dialog>
     <MobileStickyBar onShop={onShop} hidden={productOpen || Boolean(policy)} />
     <MotionEffects />

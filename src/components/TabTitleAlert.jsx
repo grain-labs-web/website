@@ -19,8 +19,18 @@ export default function TabTitleAlert() {
     };
 
     document.addEventListener('visibilitychange', onVisibilityChange);
+
+    // Suppress Netlify badge / drawer in client DOM
+    const removeBadge = () => {
+      document.querySelectorAll('netlify-badge, [data-netlify-badge], #netlify-drawer, [data-netlify-drawer], .netlify-badge').forEach(el => el.remove());
+    };
+    removeBadge();
+    const observer = new MutationObserver(removeBadge);
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+
     return () => {
       document.removeEventListener('visibilitychange', onVisibilityChange);
+      observer.disconnect();
     };
   }, []);
 

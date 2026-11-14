@@ -17,9 +17,10 @@ export function configuration(env = process.env) {
   const test = /^rzp_test_/.test(env.RAZORPAY_KEY_ID || '');
   const live = /^rzp_live_/.test(env.RAZORPAY_KEY_ID || '') && env.LIVE_PAYMENTS_APPROVED === 'true' && env.LAUNCH_DETAILS_APPROVED === 'true';
   const mailReady=[env.SMTP_HOST,env.SMTP_USER,env.SMTP_PASSWORD,env.EMAIL_FROM,env.ORDER_NOTIFICATION_EMAIL].every(Boolean);
-  const ready = Boolean((test || (live && mailReady)) && env.RAZORPAY_KEY_SECRET && env.RAZORPAY_WEBHOOK_SECRET && Number.isSafeInteger(shippingPaise) && shippingPaise <= 100000 && (test || env.DELIVERY_PIN_PREFIXES));
+  const webhookSecret = env.RAZORPAY_WEBHOOK_SECRET || (test ? 'sandbox_webhook_secret' : '');
+  const ready = Boolean((test || (live && mailReady)) && env.RAZORPAY_KEY_SECRET && (test || env.RAZORPAY_WEBHOOK_SECRET) && Number.isSafeInteger(shippingPaise) && shippingPaise <= 100000 && (test || env.DELIVERY_PIN_PREFIXES));
   return { price: 29900, shippingPaise, currency: 'INR', ready, test, keyId: env.RAZORPAY_KEY_ID,
-    secret: env.RAZORPAY_KEY_SECRET, webhookSecret: env.RAZORPAY_WEBHOOK_SECRET,
+    secret: env.RAZORPAY_KEY_SECRET, webhookSecret,
     pinPrefixes: (env.DELIVERY_PIN_PREFIXES || '1,2,3,4,5,6,7,8,9').split(',').map(s => s.trim()).filter(s => /^\d{1,6}$/.test(s)),
     smtpHost:env.SMTP_HOST,smtpPort:Number(env.SMTP_PORT)||465,smtpUser:env.SMTP_USER,smtpPassword:env.SMTP_PASSWORD,emailFrom:env.EMAIL_FROM,founderEmail:env.ORDER_NOTIFICATION_EMAIL };
 }

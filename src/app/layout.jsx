@@ -1,7 +1,7 @@
 import './globals.css';
 import TabTitleAlert from '../components/TabTitleAlert';
 
-const siteUrl = process.env.PUBLIC_ORIGIN || process.env.URL || 'https://grainlabs.netlify.app';
+const siteUrl = 'https://grainlabs.co.in';
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
