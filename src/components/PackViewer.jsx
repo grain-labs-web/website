@@ -20,6 +20,7 @@ export default function PackViewer({onSelect}) {
       <div ref={fallback} className="pack-fallback" onClick={onSelect}><div className="artwork-crop front-art"><img src="/assets/packaging-alternate.png" width="578" height="1280" alt="Grain Labs Women's Oats, rich chocolate, front packaging artwork" fetchPriority="high" /></div></div>
       <canvas ref={canvas} tabIndex={0} role="img" aria-label="Interactive 3D Grain Labs packet. Drag to rotate, or use arrow keys." aria-describedby="pack-status" hidden />
       <div className="pack-shadow" aria-hidden="true" /><div className="pack-pedestal" aria-hidden="true" /><span className="oat-confetti oat-one" aria-hidden="true" /><span className="oat-confetti oat-two" aria-hidden="true" /><span className="chocolate-confetti" aria-hidden="true" />
+      <span className="pouch-hint-badge" aria-hidden="true">Drag to rotate ↺</span>
     </div>
     <div className="pack-toolbar"><div role="group" aria-label="Package view">
       <button ref={front} aria-label="View front of packet" title="View front" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14l1 18H4L5 3Z M5 6h14 M8 12h8 M8 16h5" /></svg><span>The pack</span></button>

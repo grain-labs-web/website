@@ -8,6 +8,7 @@ import ProductDialog from './ProductDialog';
 import BreakfastCreator from './BreakfastCreator';
 import Marquee from './Marquee';
 import MotionEffects from './MotionEffects';
+import MobileStickyBar from './MobileStickyBar';
 import { ShopContext } from './ShopContext';
 import { policies } from '../lib/policies';
 import { useModal, backdropClose } from './useModal';
@@ -51,6 +52,7 @@ export default function Storefront({ intro, story, year }) {
       <button className="close" onClick={()=>setPolicy(null)} aria-label="Close information">×</button><p className="eyebrow">THE DETAILS</p><h2 id="policy-title">{policy}</h2>
       <div>{policy&&<PolicyContent html={policies[policy]} />}</div>
     </dialog>
+    <MobileStickyBar onShop={onShop} hidden={productOpen || Boolean(policy)} />
     <MotionEffects />
   </ShopContext.Provider>;
 }
